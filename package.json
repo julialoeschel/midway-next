@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^5.0.1",
+    "@turf/center": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
+    "@turf/turf": "^6.5.0",
     "mapbox-gl": "^2.8.2",
     "next": "12.1.6",
     "react": "18.1.0",

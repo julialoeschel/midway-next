@@ -4,7 +4,8 @@ import styles from "../styles/Home.module.css";
 import React, { useRef, useEffect, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Link from "next/link";
-
+import * as turf from "@turf/turf";
+//import Marker from "../public/Components/Marker";
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
 export default function Home() {
@@ -21,6 +22,21 @@ export default function Home() {
       style: "mapbox://styles/mapbox/streets-v11",
       center: [lng, lat],
       zoom: zoom,
+    });
+
+    const allLocationsRaw = localStorage.getItem("locations");
+    const markers = JSON.parse(allLocationsRaw);
+    const coordinates = markers.map((marker) => marker.center);
+
+    markers.map((marker) => {
+      new mapboxgl.Marker().setLngLat(marker.center).addTo(map.current);
+
+      const features = turf.points(coordinates);
+      const center = turf.center(features);
+
+      new mapboxgl.Marker({ color: "black" })
+        .setLngLat(center.geometry.coordinates)
+        .addTo(map.current);
     });
   });
 
