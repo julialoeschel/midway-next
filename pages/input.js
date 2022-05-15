@@ -3,7 +3,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import styles from "../styles/Input.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
@@ -15,13 +15,21 @@ geocoder = new MapboxGeocoder({
 
 export default function Input() {
   const geocoderElement = useRef();
-  const [places, setPlaces] = useState([]);
+  const [locations, setLocations] = useState([]);
 
   geocoder?.on("result", (event) => {
-    setPlaces([...places, event.result]);
+    setLocations([...locations, event.result]);
   });
 
-  console.log(places);
+  useEffect(() => {
+    localStorage.setItem("locations", JSON.stringify(locations));
+  }, [locations]);
+
+  useEffect(() => {
+    const allLocationsRaw = localStorage.getItem("locations");
+    const allLocations = JSON.parse(allLocationsRaw);
+    console.log("from localstorage", allLocations);
+  }, [locations]);
 
   return (
     <>
@@ -48,7 +56,7 @@ export default function Input() {
 
       <div>
         <ul>
-          {places?.map((location) => (
+          {locations?.map((location) => (
             <li key={location.id}>{location.place_name}</li>
           ))}
         </ul>
