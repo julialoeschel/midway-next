@@ -1,0 +1,19 @@
+.locationCard {
+  list-style: none;
+  display: grid;
+  position: relative;
+  padding: 1.3em 1em;
+  margin-right: 2em;
+  background-color: rgb(238, 234, 234);
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  font-size: large;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}

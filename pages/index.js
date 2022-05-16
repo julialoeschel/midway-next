@@ -38,14 +38,14 @@ export default function Home() {
         .setLngLat(center.geometry.coordinates)
         .addTo(map.current);
     });
-  });
 
-  useEffect(() => {
-    if (!map.current) return; // wait for map to initialize
-    map.current.on("move", () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
+    //center map over markers
+    const line = turf.lineString(coordinates);
+    const sw = [turf.bbox(line)[0], turf.bbox(line)[1]];
+    const ne = [turf.bbox(line)[2], turf.bbox(line)[3]];
+
+    map.current.fitBounds([sw, ne], {
+      padding: { top: 100, bottom: 100, left: 100, right: 100 },
     });
   });
 
@@ -58,9 +58,6 @@ export default function Home() {
       </Head>
       <div className={styles.container}>
         <div>
-          <div className={styles.sidebar}>
-            Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-          </div>
           <div ref={mapContainer} className={styles.mapcontainer} />
         </div>
       </div>
