@@ -48,11 +48,15 @@ export default function Input() {
       ></div>
       <div className={styles.buttonContainer}>
         {geocoderIsThere ? (
-          <button className={styles.button}>
-            <Link href="/">
-              <a>lets switch</a>
-            </Link>
-          </button>
+          locations.length > 1 ? (
+            <button className={styles.button}>
+              <Link href="/">
+                <a>lets switch</a>
+              </Link>
+            </button>
+          ) : (
+            <p>put at least 2 locations</p>
+          )
         ) : (
           <button
             className={styles.button}

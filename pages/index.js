@@ -11,17 +11,14 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 export default function Home() {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(10);
-  const [lat, setLat] = useState(53.4);
-  const [zoom, setZoom] = useState(7.3);
 
   useEffect(() => {
     if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
+      center: [53.54265431104417, 9.984509019267124],
+      zoom: 13,
     });
 
     const allLocationsRaw = localStorage.getItem("locations");
@@ -61,6 +58,7 @@ export default function Home() {
           <div ref={mapContainer} className={styles.mapcontainer} />
         </div>
       </div>
+
       <button>
         <Link href="/input">
           <a>lets switch</a>
