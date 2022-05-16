@@ -4,6 +4,7 @@ import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import styles from "../styles/Input.module.css";
 import { useState, useRef, useEffect } from "react";
+import LocationCard from "../public/Components/LocationCard";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
@@ -16,6 +17,7 @@ geocoder = new MapboxGeocoder({
 export default function Input() {
   const geocoderElement = useRef();
   const [locations, setLocations] = useState([]);
+  const [geocoderIsThere, setGeoCoderIsThere] = useState(false);
 
   geocoder?.on("result", (event) => {
     setLocations([...locations, event.result]);
@@ -28,36 +30,52 @@ export default function Input() {
   useEffect(() => {
     const allLocationsRaw = localStorage.getItem("locations");
     const allLocations = JSON.parse(allLocationsRaw);
-    console.log("from localstorage", allLocations);
   }, [locations]);
+  console.log(locations);
+
+  function handleDelete(id) {
+    const allItems = locations.filter((location) => location.id !== id);
+    setLocations(allItems);
+  }
 
   return (
     <>
+      <h1 className={styles.heading}>put in your locations</h1>
       <div
         ref={geocoderElement}
         id="geocoder"
         className={styles.geocoder}
       ></div>
-      {!geocoderElement.current ? (
-        <button
-          onClick={() => {
-            geocoder.addTo("#geocoder");
-          }}
-        >
-          get started
-        </button>
-      ) : (
-        <button>
-          <Link href="/">
-            <a>lets switch</a>
-          </Link>
-        </button>
-      )}
+      <div className={styles.buttonContainer}>
+        {geocoderIsThere ? (
+          <button className={styles.button}>
+            <Link href="/">
+              <a>lets switch</a>
+            </Link>
+          </button>
+        ) : (
+          <button
+            className={styles.button}
+            onClick={() => {
+              setGeoCoderIsThere(true);
+              geocoder.addTo("#geocoder");
+            }}
+          >
+            get started
+          </button>
+        )}
+      </div>
 
       <div>
         <ul>
           {locations?.map((location) => (
-            <li key={location.id}>{location.place_name}</li>
+            <LocationCard
+              key={location.id}
+              id={location.id}
+              onDelete={handleDelete}
+            >
+              {location.place_name}
+            </LocationCard>
           ))}
         </ul>
       </div>

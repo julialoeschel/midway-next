@@ -1,5 +1,13 @@
 .geocoder {
-  width: 60vw;
-  background-color: blueviolet;
-  height: 100px;
+  padding: 2em;
+  height: 150px;
+}
+
+.buttonContainer {
+  display: grid;
+  justify-content: center;
+}
+
+.heading {
+  text-align: center;
 }
