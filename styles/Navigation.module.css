@@ -1,0 +1,28 @@
+.footer {
+  height: 80px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+  padding: 5px;
+  background-color: white;
+}
+
+.navIcon {
+  width: 40px;
+  height: 40px;
+}
+
+.button {
+  background-color: lightslategray;
+  border: none;
+  border-radius: 10px;
+}
+
+.navIconInactive {
+  width: 40px;
+  height: 40px;
+  fill: gray;
+}

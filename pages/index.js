@@ -3,9 +3,9 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import styles from "../styles/Home.module.css";
 import React, { useRef, useEffect, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
-import Link from "next/link";
 import * as turf from "@turf/turf";
-//import Marker from "../public/Components/Marker";
+import Navigation from "../public/Components/Navigation";
+
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
 export default function Home() {
@@ -59,11 +59,7 @@ export default function Home() {
         </div>
       </div>
 
-      <button>
-        <Link href="/input">
-          <a>lets switch</a>
-        </Link>
-      </button>
+      <Navigation minimalLocationSet={true} />
     </>
   );
 }

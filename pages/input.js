@@ -5,6 +5,7 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import styles from "../styles/Input.module.css";
 import { useState, useRef, useEffect } from "react";
 import LocationCard from "../public/Components/LocationCard";
+import Navigation from "../public/Components/Navigation";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
@@ -49,11 +50,9 @@ export default function Input() {
       <div className={styles.buttonContainer}>
         {geocoderIsThere ? (
           locations.length > 1 ? (
-            <button className={styles.button}>
-              <Link href="/">
-                <a>lets switch</a>
-              </Link>
-            </button>
+            <p className={styles.message}>
+              great, here are your locations. <span>View them on the map</span>
+            </p>
           ) : (
             <p>put at least 2 locations</p>
           )
@@ -70,7 +69,7 @@ export default function Input() {
         )}
       </div>
 
-      <div>
+      <div className={styles.list}>
         <ul>
           {locations?.map((location) => (
             <LocationCard
@@ -83,6 +82,7 @@ export default function Input() {
           ))}
         </ul>
       </div>
+      <Navigation minimalLocationSet={locations.length > 1} />
     </>
   );
 }

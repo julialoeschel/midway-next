@@ -11,3 +11,17 @@
 .heading {
   text-align: center;
 }
+
+.list {
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.message {
+  width: 80vw;
+}
+
+.message span {
+  display: block;
+  background-color: rgb(250, 250, 161);
+}
