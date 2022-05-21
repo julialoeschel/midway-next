@@ -6,6 +6,7 @@
 .buttonContainer {
   display: grid;
   justify-content: center;
+  position: relative;
 }
 
 .heading {
@@ -17,11 +18,32 @@
   overflow: auto;
 }
 
-.message {
-  width: 80vw;
+.warn {
+  color: var(--warn);
 }
 
-.message span {
+.button {
+  height: 64px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.6em;
+  font-family: "Zen Loop", cursive;
+}
+
+.button::before {
+  content: "";
   display: block;
-  background-color: rgb(250, 250, 161);
+  position: absolute;
+  inset: 0;
+  height: 64px;
+  width: 64px;
+  border-radius: 32px;
+  z-index: -1;
+  background: var(--color1);
+  transition: width 200ms;
+  left: 30%;
+}
+
+.button:is(:hover, :focus)::before {
+  width: 40%;
 }

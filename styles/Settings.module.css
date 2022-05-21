@@ -1,0 +1,42 @@
+.listContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0;
+  margin: 0;
+}
+
+.locationListing {
+  list-style: none;
+  display: inline-block;
+  background-color: var(--color2);
+  padding: 0.2em 0.5em;
+  border-radius: 5px;
+}
+
+.settings {
+  padding: 0 1em;
+}
+
+.interestList {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 3px;
+  justify-content: space-between;
+}
+
+.interests {
+  list-style: none;
+  padding: 0.15em 0.75em;
+  background-color: var(--color1);
+
+  border-radius: 15px;
+}
+
+.active {
+  list-style: none;
+  padding: 0.15em 0.75em;
+  background-color: var(--warn);
+  border-radius: 15px;
+}

@@ -1,9 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Zen+Loop&display=swap");
+
+:root {
+  --background: #f8f8f8;
+  --color1: #e4bea8;
+  --color2: #c2dcd4;
+  --warn: #8083ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Zen Loop", cursive;
+  font-size: 20px;
+  background-color: var(--background);
+  position: relative;
+  z-index: -200;
 }
 
 a {
