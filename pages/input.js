@@ -50,11 +50,9 @@ export default function Input() {
       <div className={styles.buttonContainer}>
         {geocoderIsThere ? (
           locations.length > 1 ? (
-            <p className={styles.message}>
-              great, here are your locations. <span>View them on the map</span>
-            </p>
+            <p className={styles.message}></p>
           ) : (
-            <p>put at least 2 locations</p>
+            <p className={styles.warn}>put at least 2 locations</p>
           )
         ) : (
           <button
@@ -69,8 +67,8 @@ export default function Input() {
         )}
       </div>
 
-      <div className={styles.list}>
-        <ul>
+      <div>
+        <ul className={styles.list}>
           {locations?.map((location) => (
             <LocationCard
               key={location.id}
