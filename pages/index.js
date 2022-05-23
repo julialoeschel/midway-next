@@ -52,12 +52,43 @@ export default function Home() {
     const lat = center.geometry.coordinates[1];
     console.log("lat/long", lat, long);
 
+    const radius = localStorage.getItem("radius") * 1000;
+    const interests = JSON.parse(localStorage.getItem("interests"));
+    const categoriesInWords = Object.keys(interests).filter(
+      (key) => interests[key]
+    );
+    let categoriesNumbers = [];
+    if (categoriesInWords.includes("Bar")) {
+      categoriesNumbers.push(13003);
+    }
+    if (categoriesInWords.includes("Restaurant")) {
+      categoriesNumbers.push(13065);
+    }
+    if (categoriesInWords.includes("Cafe")) {
+      categoriesNumbers.push(13034);
+    }
+    if (categoriesInWords.includes("Hotel")) {
+      categoriesNumbers.push(19014);
+    }
+    const categories = categoriesNumbers.join("%2C");
+    console.log(categories);
+
+    getPOIs();
+
     async function getPOIs() {
-      const response = await fetch(`api/poi/${lat}/${long}`);
+      const response = await fetch(
+        `api/poi/${lat}/${long}/${radius}/${categories}`
+      );
       const body = await response.json();
       console.log("wabblwabbl", body);
     }
-    getPOIs();
+
+    const emptyInterests = {
+      Bar: false,
+      Restaurant: false,
+      Cafe: false,
+      Hotel: false,
+    };
   });
 
   return (

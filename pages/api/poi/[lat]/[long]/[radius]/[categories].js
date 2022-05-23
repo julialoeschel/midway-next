@@ -1,5 +1,5 @@
 export default async function getPoi(req, res) {
-  const { lat, long } = req.query;
+  const { lat, long, radius, categories } = req.query;
 
   const options = {
     method: "GET",
@@ -8,9 +8,9 @@ export default async function getPoi(req, res) {
       Authorization: "fsq3IMMwoaYfwSaXzGQqKlc9o9AtrQqjZeGEJTa6IjqBFaU=",
     },
   };
-
+  // ein und bei den categories ist %2C
   const response = await fetch(
-    `https://api.foursquare.com/v3/places/search?ll=${lat}%2C${long}&radius=30000&categories=13003&limit=10`,
+    `https://api.foursquare.com/v3/places/search?ll=${lat}%2C${long}&radius=${radius}&categories=${categories}&limit=10`,
     options
   );
   const places = await response.json();

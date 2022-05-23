@@ -19,6 +19,8 @@ export default function Settings() {
   if (typeof window !== "undefined") {
     const allLocationsRaw = localStorage.getItem("locations");
     locations = JSON.parse(allLocationsRaw);
+    localStorage.setItem("radius", radius);
+    localStorage.setItem("interests", JSON.stringify(interestedIn));
   }
 
   return (

@@ -28,12 +28,6 @@ export default function Input() {
     localStorage.setItem("locations", JSON.stringify(locations));
   }, [locations]);
 
-  useEffect(() => {
-    const allLocationsRaw = localStorage.getItem("locations");
-    const allLocations = JSON.parse(allLocationsRaw);
-  }, [locations]);
-  console.log(locations);
-
   function handleDelete(id) {
     const allItems = locations.filter((location) => location.id !== id);
     setLocations(allItems);
