@@ -1,7 +1,6 @@
 import Navigation from "../public/Components/Navigation";
 import { useState } from "react";
 import styles from "../styles/Settings.module.css";
-import { useEffect } from "react";
 
 export default function Settings() {
   const [radius, setRadius] = useState(0);

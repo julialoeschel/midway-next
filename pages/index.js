@@ -12,6 +12,8 @@ export default function Home() {
   const mapContainer = useRef(null);
   const map = useRef(null);
 
+  let center;
+
   useEffect(() => {
     if (map.current) return;
     map.current = new mapboxgl.Map({
@@ -29,7 +31,8 @@ export default function Home() {
       new mapboxgl.Marker().setLngLat(marker.center).addTo(map.current);
 
       const features = turf.points(coordinates);
-      const center = turf.center(features);
+      //center
+      center = turf.center(features);
 
       new mapboxgl.Marker({ color: "black" })
         .setLngLat(center.geometry.coordinates)
@@ -44,6 +47,17 @@ export default function Home() {
     map.current.fitBounds([sw, ne], {
       padding: { top: 100, bottom: 100, left: 100, right: 100 },
     });
+
+    const long = center.geometry.coordinates[0];
+    const lat = center.geometry.coordinates[1];
+    console.log("lat/long", lat, long);
+
+    async function getPOIs() {
+      const response = await fetch(`api/poi/${lat}/${long}`);
+      const body = await response.json();
+      console.log("wabblwabbl", body);
+    }
+    getPOIs();
   });
 
   return (
