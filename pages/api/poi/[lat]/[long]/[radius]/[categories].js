@@ -5,7 +5,7 @@ export default async function getPoi(req, res) {
     method: "GET",
     headers: {
       Accept: "application/json",
-      Authorization: "fsq3IMMwoaYfwSaXzGQqKlc9o9AtrQqjZeGEJTa6IjqBFaU=",
+      Authorization: process.env.NEXT_PUBLIC_FORESQUARE_AUTH,
     },
   };
   // ein und bei den categories ist %2C
