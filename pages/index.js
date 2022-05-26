@@ -23,72 +23,77 @@ export default function Home() {
       zoom: 13,
     });
 
-    const allLocationsRaw = localStorage.getItem("locations");
-    const markers = JSON.parse(allLocationsRaw);
-    const coordinates = markers.map((marker) => marker.center);
+    if (localStorage.getItem("locations") != [] || undefined) {
+      const allLocationsRaw = localStorage.getItem("locations");
+      const markers = JSON.parse(allLocationsRaw);
+      const coordinates = markers.map((marker) => marker.center);
 
-    markers.map((marker) => {
-      new mapboxgl.Marker().setLngLat(marker.center).addTo(map.current);
+      markers.map((marker) => {
+        new mapboxgl.Marker().setLngLat(marker.center).addTo(map.current);
 
-      const features = turf.points(coordinates);
-      //center
-      center = turf.center(features);
+        const features = turf.points(coordinates);
+        //center
+        center = turf.center(features);
 
-      new mapboxgl.Marker({ color: "black" })
-        .setLngLat(center.geometry.coordinates)
-        .addTo(map.current);
-    });
+        new mapboxgl.Marker({ color: "black" })
+          .setLngLat(center.geometry.coordinates)
+          .addTo(map.current);
+      });
 
-    //center map over markers
-    const line = turf.lineString(coordinates);
-    const sw = [turf.bbox(line)[0], turf.bbox(line)[1]];
-    const ne = [turf.bbox(line)[2], turf.bbox(line)[3]];
+      //center map over markers
+      const line = turf.lineString(coordinates);
+      const sw = [turf.bbox(line)[0], turf.bbox(line)[1]];
+      const ne = [turf.bbox(line)[2], turf.bbox(line)[3]];
 
-    map.current.fitBounds([sw, ne], {
-      padding: { top: 100, bottom: 100, left: 100, right: 100 },
-    });
+      map.current.fitBounds([sw, ne], {
+        padding: { top: 100, bottom: 100, left: 100, right: 100 },
+      });
 
-    const long = center.geometry.coordinates[0];
-    const lat = center.geometry.coordinates[1];
-    console.log("lat/long", lat, long);
+      const long = center.geometry.coordinates[0];
+      const lat = center.geometry.coordinates[1];
+      console.log("lat/long", lat, long);
 
-    const radius = localStorage.getItem("radius") * 1000;
-    const interests = JSON.parse(localStorage.getItem("interests"));
-    const categoriesInWords = Object.keys(interests).filter(
-      (key) => interests[key]
-    );
-    let categoriesNumbers = [];
-    if (categoriesInWords.includes("Bar")) {
-      categoriesNumbers.push(13003);
-    }
-    if (categoriesInWords.includes("Restaurant")) {
-      categoriesNumbers.push(13065);
-    }
-    if (categoriesInWords.includes("Cafe")) {
-      categoriesNumbers.push(13034);
-    }
-    if (categoriesInWords.includes("Hotel")) {
-      categoriesNumbers.push(19014);
-    }
-    const categories = categoriesNumbers.join("%2C");
-    console.log(categories);
+      const radius = localStorage.getItem("radius") * 1000;
+      const interests = JSON.parse(localStorage.getItem("interests"));
 
-    getPOIs();
-
-    async function getPOIs() {
-      const response = await fetch(
-        `api/poi/${lat}/${long}/${radius}/${categories}`
+      const categoriesInWords = Object.keys(interests).filter(
+        (key) => interests[key]
       );
-      const body = await response.json();
-      console.log("wabblwabbl", body);
-    }
+      if (radius > 0 && categoriesInWords.length > 0) {
+        let categoriesNumbers = [];
+        if (categoriesInWords.includes("Bar")) {
+          categoriesNumbers.push(13003);
+        }
+        if (categoriesInWords.includes("Restaurant")) {
+          categoriesNumbers.push(13065);
+        }
+        if (categoriesInWords.includes("Cafe")) {
+          categoriesNumbers.push(13034);
+        }
+        if (categoriesInWords.includes("Hotel")) {
+          categoriesNumbers.push(19014);
+        }
+        const categories = categoriesNumbers.join("%2C");
+        console.log(categories);
 
-    const emptyInterests = {
-      Bar: false,
-      Restaurant: false,
-      Cafe: false,
-      Hotel: false,
-    };
+        getPOIs();
+      }
+
+      async function getPOIs() {
+        const response = await fetch(
+          `api/poi/${lat}/${long}/${radius}/${categories}`
+        );
+        const body = await response.json();
+        console.log("wabblwabbl", body);
+      }
+
+      const emptyInterests = {
+        Bar: false,
+        Restaurant: false,
+        Cafe: false,
+        Hotel: false,
+      };
+    }
   });
 
   return (

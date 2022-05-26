@@ -1,0 +1,29 @@
+.text {
+  padding-left: 20px;
+  text-align: center;
+  margin: 0;
+}
+
+.welcome {
+  font-weight: 700;
+  font-size: 2.5em;
+  padding-left: 40px;
+  text-align: center;
+  margin: 0;
+}
+
+.div {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  width: 120px;
+  padding: 10px;
+  background-color: var(--color1);
+  border: none;
+  border-radius: 10px;
+  align-self: center;
+  margin-top: 40px;
+}
