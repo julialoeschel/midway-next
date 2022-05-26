@@ -5,3 +5,4 @@ This is
 if you want to run the vercel deplyment -
 use https://midway-next.vercel.app/input.
 have fun.
+(use in mobile screen)
