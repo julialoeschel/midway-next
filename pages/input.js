@@ -26,6 +26,16 @@ export default function Input() {
 
   useEffect(() => {
     localStorage.setItem("locations", JSON.stringify(locations));
+    localStorage.setItem("radius", 0);
+    localStorage.setItem(
+      "interests",
+      JSON.stringify({
+        Bar: false,
+        Restaurant: false,
+        Cafe: false,
+        Hotel: false,
+      })
+    );
   }, [locations]);
 
   function handleDelete(id) {

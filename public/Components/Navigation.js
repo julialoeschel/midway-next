@@ -14,26 +14,32 @@ export default function Navigatio({ minimalLocationSet }) {
         </Link>
       </button>
       {minimalLocationSet ? (
-        <button className={styles.button}>
-          <Link href="/">
-            <a>
-              <BiWorld className={styles.navIcon} />
-            </a>
-          </Link>
-        </button>
+        <>
+          <button className={styles.button}>
+            <Link href="/">
+              <a>
+                <BiWorld className={styles.navIcon} />
+              </a>
+            </Link>
+          </button>
+          <button className={styles.button}>
+            <Link href="/settings">
+              <a>
+                <GoSettings className={styles.navIcon} />
+              </a>
+            </Link>
+          </button>
+        </>
       ) : (
-        <button className={styles.button}>
-          <BiWorld className={styles.navIconInactive} />
-        </button>
+        <>
+          <button className={styles.button}>
+            <BiWorld className={styles.navIconInactive} />
+          </button>
+          <button className={styles.button}>
+            <GoSettings className={styles.navIconInactive} />
+          </button>
+        </>
       )}
-
-      <button className={styles.button}>
-        <Link href="/settings">
-          <a>
-            <GoSettings className={styles.navIcon} />
-          </a>
-        </Link>
-      </button>
     </footer>
   );
 }

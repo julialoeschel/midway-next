@@ -51,7 +51,6 @@ export default function Home() {
 
       const long = center.geometry.coordinates[0];
       const lat = center.geometry.coordinates[1];
-      console.log("lat/long", lat, long);
 
       const radius = localStorage.getItem("radius") * 1000;
       const interests = JSON.parse(localStorage.getItem("interests"));
@@ -74,9 +73,8 @@ export default function Home() {
           categoriesNumbers.push(19014);
         }
         const categories = categoriesNumbers.join("%2C");
-        console.log(categories);
-
         getPOIs();
+        getPIOs2();
       }
 
       async function getPOIs() {
@@ -84,9 +82,35 @@ export default function Home() {
           `api/poi/${lat}/${long}/${radius}/${categories}`
         );
         const body = await response.json();
-        console.log("wabblwabbl", body);
+        return body.results;
       }
+      async function getPIOs2() {
+        const locationsOfInteres = await getPOIs();
 
+        locationsOfInteres?.map((point) => {
+          const coordinates = [
+            point.geocodes.main.longitude,
+            point.geocodes.main.latitude,
+          ];
+          const el = document.createElement("div");
+          el.innerHTML =
+            '<svg clip-rule="evenodd" fill="var(--warn)" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.998 2c5.517 0 9.997 4.48 9.997 9.998 0 5.517-4.48 9.997-9.997 9.997-5.518 0-9.998-4.48-9.998-9.997 0-5.518 4.48-9.998 9.998-9.998zm0 1.5c-4.69 0-8.498 3.808-8.498 8.498s3.808 8.497 8.498 8.497 8.497-3.807 8.497-8.497-3.807-8.498-8.497-8.498z" fill-rule="nonzero"/></svg>';
+          el.style.width = "30px";
+          el.style.height = "30px";
+
+          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+            `<p>${point.name} </p>`
+          );
+          new mapboxgl.Marker({
+            color: "red",
+            scale: 0.7,
+            element: el,
+          })
+            .setLngLat(coordinates)
+            .setPopup(popup)
+            .addTo(map.current);
+        });
+      }
       const emptyInterests = {
         Bar: false,
         Restaurant: false,
