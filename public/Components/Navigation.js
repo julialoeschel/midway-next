@@ -1,8 +1,8 @@
 import styles from "../../styles/Navigation.module.css";
 import Link from "next/link";
 //import { BiWorld } from "react-icons/Bi";
-//import { GoLocation, GoSettings } from "react-icons/Go";
-//<GoLocation className={styles.navIcon} />
+import { GoLocation, GoSettings } from "react-icons/Go";
+
 //  <BiWorld className={styles.navIcon} />
 //  <GoSettings className={styles.navIcon} />
 
@@ -18,7 +18,9 @@ export default function Navigatio({ minimalLocationSet }) {
         <>
           <button className={styles.button}>
             <Link href="/">
-              <a>Map</a>
+              <a>
+                <GoLocation className={styles.navIcon} />
+              </a>
             </Link>
           </button>
           <button className={styles.button}>

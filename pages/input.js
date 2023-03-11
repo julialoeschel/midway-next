@@ -1,4 +1,3 @@
-import Link from "next/link";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -22,6 +21,7 @@ export default function Input() {
 
   geocoder?.on("result", (event) => {
     setLocations([...locations, event.result]);
+    geocoder.clear();
   });
 
   useEffect(() => {
