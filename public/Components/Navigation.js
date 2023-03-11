@@ -1,7 +1,7 @@
 import styles from "../../styles/Navigation.module.css";
 import Link from "next/link";
-//import { BiWorld } from "react-icons/Bi";
-import { GoLocation, GoSettings } from "react-icons/Go";
+import { BiWorld } from "react-icons/bi";
+import { GoLocation, GoSettings } from "react-icons/go";
 
 //  <BiWorld className={styles.navIcon} />
 //  <GoSettings className={styles.navIcon} />
@@ -11,7 +11,9 @@ export default function Navigatio({ minimalLocationSet }) {
     <footer className={styles.footer}>
       <button className={styles.button}>
         <Link href="/input">
-          <a>Input</a>
+          <a>
+            <BiWorld className={styles.navIcon} />
+          </a>
         </Link>
       </button>
       {minimalLocationSet ? (
@@ -25,7 +27,9 @@ export default function Navigatio({ minimalLocationSet }) {
           </button>
           <button className={styles.button}>
             <Link href="/settings">
-              <a>Settings</a>
+              <a>
+                <GoSettings className={styles.navIcon} />
+              </a>
             </Link>
           </button>
         </>
